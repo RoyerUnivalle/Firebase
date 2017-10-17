@@ -20,23 +20,18 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-
     //Para leer y escribir en la base de datos, necesitas una instancia de DatabaseReference:
     DatabaseReference myRef = database.getReference();
-
     EditText mostrar,escribir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mostrar = (EditText) findViewById(R.id.ed1);
         escribir = (EditText) findViewById(R.id.ed2);
     }
-
     public  void EscribirFireBase(View f){
-
         // Write a message to the database
         //myRef.setValue("Hello, World!");
         String valor = escribir.getText().toString().trim();
@@ -45,10 +40,7 @@ public class MainActivity extends AppCompatActivity {
         }else{
             myRef.child("chats").child("one").child("title").setValue(valor);
         }
-
     }
-
-
     public  void LeerFirebase(View g){
         // Read from the database
         myRef.addValueEventListener(new ValueEventListener() {
@@ -61,10 +53,8 @@ public class MainActivity extends AppCompatActivity {
                 Map<String, Object> value = (Map<String, Object>) dataSnapshot.getValue();
                 mostrar.setText(""+value.size()+" "+value.containsKey("chats"));
                 mostrar.append("  "+value.values());
-
                 //Log.d("","Values is "+value);
             }
-
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
